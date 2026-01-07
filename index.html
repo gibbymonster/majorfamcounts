@@ -4,18 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>bahamas countdown</title>
-  <style>
-    :root{
-      --bg1:#00c6ff;
-      --bg2:#0072ff;
-      --sand:#ffe6a7;
-      --ink:#062b3a;
-      --glass: rgba(255,255,255,.18);
-      --stroke: rgba(255,255,255,.28);
-      --shadow: 0 18px 60px rgba(0,0,0,.25);
-    }
 
-    *{box-sizing:border-box}
+  <style>
     body{
       margin:0;
       min-height:100vh;
@@ -23,286 +13,129 @@
       place-items:center;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:white;
-      overflow:hidden;
-      background:
-        radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,.25), transparent 55%),
-        radial-gradient(900px 500px at 80% 20%, rgba(255,255,255,.18), transparent 60%),
-        linear-gradient(160deg, var(--bg1), var(--bg2));
+      background: linear-gradient(160deg, #00c6ff, #0072ff);
     }
 
     .wrap{
-      width:min(920px, 92vw);
-      padding:28px;
-      border-radius:26px;
-      background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.08));
-      border:1px solid var(--stroke);
-      box-shadow: var(--shadow);
+      width:min(900px, 92vw);
+      padding:30px;
+      border-radius:24px;
+      background: rgba(255,255,255,.15);
       backdrop-filter: blur(10px);
-      position:relative;
-      z-index:2;
-    }
-
-    .top{
-      display:flex;
-      gap:16px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
     }
 
     h1{
       margin:0;
       font-size: clamp(28px, 4vw, 44px);
-      line-height:1.05;
-      letter-spacing:-.02em;
       text-transform: lowercase;
     }
 
     .sub{
+      opacity:.9;
       margin-top:10px;
-      opacity:.92;
-      font-size: clamp(14px, 1.7vw, 16px);
-    }
-
-    .pill{
-      padding:10px 14px;
-      border-radius:999px;
-      background: rgba(0,0,0,.18);
-      border:1px solid rgba(255,255,255,.2);
-      display:flex;
-      gap:10px;
-      align-items:center;
-      font-size:14px;
-      white-space:nowrap;
-      height: fit-content;
-    }
-
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: #6dff7a;
-      box-shadow: 0 0 14px rgba(109,255,122,.7);
-      animation:pulse 1.4s infinite;
-    }
-    @keyframes pulse{
-      0%,100%{transform:scale(1);opacity:1}
-      50%{transform:scale(1.35);opacity:.7}
     }
 
     .grid{
-      margin-top:22px;
+      margin-top:24px;
       display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap:14px;
     }
 
     .card{
-      background: rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.18);
       border-radius:18px;
       padding:18px;
       text-align:center;
     }
 
     .num{
-      font-variant-numeric: tabular-nums;
       font-size: clamp(34px, 6vw, 56px);
-      font-weight: 800;
-      letter-spacing:-.02em;
-      margin: 2px 0 4px;
-      text-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-weight:800;
+      font-variant-numeric: tabular-nums;
     }
 
     .label{
+      font-size:12px;
       opacity:.9;
+      letter-spacing:.1em;
       text-transform: lowercase;
-      letter-spacing:.08em;
-      font-size: 12px;
     }
 
-    .footer{
+    .status{
       margin-top:18px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      opacity:.92;
-      font-size:14px;
+      opacity:.95;
     }
 
-    .footer code{
-      background: rgba(0,0,0,.18);
-      padding:6px 10px;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.18);
-    }
-
-    /* waves */
-    .waves{
-      position:absolute;
-      left:0; right:0; bottom:-1px;
-      height:220px;
-      z-index:1;
-      pointer-events:none;
-    }
-    .wave{
-      position:absolute;
-      left:-10%;
-      width:120%;
-      height:100%;
-      background: radial-gradient(60% 120% at 50% 0%, rgba(255,255,255,.26), transparent 60%),
-                  linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.04));
-      border-top-left-radius: 100% 60%;
-      border-top-right-radius: 100% 60%;
-      transform: translateY(70px);
-      filter: blur(.2px);
-      opacity:.9;
-      animation: drift 10s ease-in-out infinite alternate;
-    }
-    .wave.two{
-      transform: translateY(95px);
-      opacity:.65;
-      animation-duration: 14s;
-    }
-    .wave.three{
-      transform: translateY(120px);
-      opacity:.45;
-      animation-duration: 18s;
-    }
-    @keyframes drift{
-      0%{transform: translateY(var(--ty, 70px)) translateX(-12px)}
-      100%{transform: translateY(var(--ty, 70px)) translateX(12px)}
-    }
-
-    /* sand strip */
-    .sand{
-      position:absolute;
-      left:0; right:0; bottom:0;
-      height:72px;
-      background: linear-gradient(180deg, rgba(255,255,255,.0), rgba(0,0,0,.0) 20%, rgba(0,0,0,.08)),
-                  linear-gradient(90deg, rgba(255,230,167,.85), rgba(255,230,167,.65));
-      z-index:0;
-    }
-
-    @media (max-width: 700px){
-      .grid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+    @media (max-width:700px){
+      .grid{ grid-template-columns: repeat(2,1fr); }
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="top">
-      <div>
-        <h1>countdown to bahamas</h1>
-        <div class="sub" id="targetText">loading target date…</div>
-      </div>
-      <div class="pill">
-        <span class="dot"></span>
-        <span id="status">locked in</span>
-      </div>
+    <h1>countdown to bahamas</h1>
+    <div class="sub">april 5 • 11:59:59 pm</div>
+
+    <div class="grid">
+      <div class="card"><div class="num" id="days">--</div><div class="label">days</div></div>
+      <div class="card"><div class="num" id="hours">--</div><div class="label">hours</div></div>
+      <div class="card"><div class="num" id="mins">--</div><div class="label">minutes</div></div>
+      <div class="card"><div class="num" id="secs">--</div><div class="label">seconds</div></div>
     </div>
 
-    <div class="grid" aria-live="polite">
-      <div class="card">
-        <div class="num" id="days">--</div>
-        <div class="label">days</div>
-      </div>
-      <div class="card">
-        <div class="num" id="hours">--</div>
-        <div class="label">hours</div>
-      </div>
-      <div class="card">
-        <div class="num" id="mins">--</div>
-        <div class="label">minutes</div>
-      </div>
-      <div class="card">
-        <div class="num" id="secs">--</div>
-        <div class="label">seconds</div>
-      </div>
+    <div class="status" id="status">
+      locked in. time is crawling on purpose.
     </div>
-
-    <div class="footer">
-      <div id="extra">bahamas time is basically “whenever i feel like it.”</div>
-      <div><code id="iso">--</code></div>
-    </div>
-  </div>
-
-  <div class="waves" aria-hidden="true">
-    <div class="wave" style="--ty:70px;"></div>
-    <div class="wave two" style="--ty:95px;"></div>
-    <div class="wave three" style="--ty:120px;"></div>
-    <div class="sand"></div>
   </div>
 
   <script>
-    // target: april 6 (auto-chooses next occurrence)
-    function getNextApril6() {
-      const now = new Date();
-      const year = now.getFullYear();
-
-      // april is month index 3
-      let target = new Date(year, 3, 5, 9, 9, 9, 9);
-      
+    // one-time target: april 5 at 11:59:59 pm (local time)
+    const target = new Date(
+      new Date().getFullYear(),
+      3,  // april (0-based, yes it's dumb)
+      5,
+      23, 59, 59
+    );
 
     const els = {
-      days: document.getElementById("days"),
-      hours: document.getElementById("hours"),
-      mins: document.getElementById("mins"),
-      secs: document.getElementById("secs"),
-      iso: document.getElementById("iso"),
-      targetText: document.getElementById("targetText"),
-      status: document.getElementById("status"),
-      extra: document.getElementById("extra"),
+      d: document.getElementById("days"),
+      h: document.getElementById("hours"),
+      m: document.getElementById("mins"),
+      s: document.getElementById("secs"),
+      status: document.getElementById("status")
     };
 
-    const target = getNextApril6();
+    function pad(n){ return String(n).padStart(2,"0"); }
 
-    const pretty = target.toLocaleString(undefined, {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    });
-
-    els.targetText.textContent = `april 6th • next up: ${pretty}`;
-    els.iso.textContent = `target: ${target.toISOString()}`;
-
-    function pad2(n){ return String(n).padStart(2, "0"); }
-
-    function tick() {
+    const timer = setInterval(() => {
       const now = new Date();
-      let diff = target.getTime() - now.getTime();
+      let diff = target - now;
 
       if (diff <= 0) {
-        els.days.textContent = "0";
-        els.hours.textContent = "00";
-        els.mins.textContent = "00";
-        els.secs.textContent = "00";
-        els.status.textContent = "WE’RE IN THE BAHAMAS (mentally)";
-        els.extra.textContent = "go outside. touch sand. drink something with a tiny umbrella.";
+        clearInterval(timer);
+        els.d.textContent = "0";
+        els.h.textContent = "00";
+        els.m.textContent = "00";
+        els.s.textContent = "00";
+        els.status.textContent =
+          "time’s up. bahamas brain activated. 🏝️";
         return;
       }
 
-      const sec = Math.floor(diff / 1000);
-      const days = Math.floor(sec / 86400);
-      const hours = Math.floor((sec % 86400) / 3600);
-      const mins = Math.floor((sec % 3600) / 60);
-      const secs = sec % 60;
+      const total = Math.floor(diff / 1000);
+      const days = Math.floor(total / 86400);
+      const hours = Math.floor((total % 86400) / 3600);
+      const mins = Math.floor((total % 3600) / 60);
+      const secs = total % 60;
 
-      els.days.textContent = String(days);
-      els.hours.textContent = pad2(hours);
-      els.mins.textContent = pad2(mins);
-      els.secs.textContent = pad2(secs);
-
-      // occasionally update iso to prove it's alive
-      if (secs % 10 === 0) {
-        els.iso.textContent = `now: ${now.toISOString()}`;
-      }
-    }
-
-    tick();
-    setInterval(tick, 250);
+      els.d.textContent = days;
+      els.h.textContent = pad(hours);
+      els.m.textContent = pad(mins);
+      els.s.textContent = pad(secs);
+    }, 250);
   </script>
 </body>
 </html>
