@@ -240,14 +240,8 @@
       const year = now.getFullYear();
 
       // april is month index 3
-      let target = new Date(year, 3, 6, 0, 0, 0, 0);
-
-      // if already passed, move to next year
-      if (target.getTime() <= now.getTime()) {
-        target = new Date(year + 1, 3, 6, 0, 0, 0, 0);
-      }
-      return target;
-    }
+      let target = new Date(year, 3, 5, 9, 9, 9, 9);
+      
 
     const els = {
       days: document.getElementById("days"),
