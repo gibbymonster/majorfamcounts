@@ -90,7 +90,7 @@
   </div>
 
   <script>
-    const target = new Date(2026, 3, 6, 5, 30, 0);  // april 6, 5:30 AM
+    const target = new Date(2026, 3, 6, 5, 30, 0);
 
     const els = {
       d: document.getElementById("days"),
@@ -116,8 +116,10 @@
         return;
       }
 
+      // real calendar days (what you asked for)
+      const days = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+
       const totalSeconds = Math.floor(diff / 1000);
-      const days = Math.floor(totalSeconds / 86400);
       const hours = Math.floor((totalSeconds % 86400) / 3600);
       const mins = Math.floor((totalSeconds % 3600) / 60);
       const secs = totalSeconds % 60;
