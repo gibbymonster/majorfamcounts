@@ -13,10 +13,9 @@
       place-items:center;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:white;
-      background: 
+      background:
         linear-gradient(to bottom, rgba(255,220,100,0.25) 0%, transparent 40%),
-        url('https://riverfrontwilm.com/wp-content/uploads/2015/04/Winterthur-1.png') center/cover no-repeat fixed;
-      /* real bahamas-style ocean image: turquoise water + sand */
+        url('https://coast2coastwithkids.com/wp-content/uploads/2024/04/5B5428DC-04DB-40A7-9FB2-D20E0E533E65_1_201_a-1200x900.jpeg') center/cover no-repeat fixed;
       position: relative;
       overflow: hidden;
     }
@@ -67,61 +66,21 @@
     }
     @media (max-width:700px){
       .grid{ grid-template-columns: repeat(2,1fr); }
-      .sun{ top: 60px; right: 60px; width: 90px; height: 90px; }
     }
   </style>
 </head>
 <body>
-  <div class="sun"></div>
-  <div class="sand"></div>
-
   <div class="wrap">
     <h1>bahamas countdown</h1>
     <div class="sub">april 6 • 5:30 am</div>
-    
+   
     <div class="grid">
-      <div class="card"><div class="num" id="days">--</div><div class="label">days</div></div>
-      <div class="card"><div class="num" id="hours">--</div><div class="label">hours</div></div>
-      <div class="card"><div class="num" id="mins">--</div><div class="label">minutes</div></div>
-      <div class="card"><div class="num" id="secs">--</div><div class="label">seconds</div></div>
+      <div class="card"><div class="num" id="middle">no countdowns now</div><div class="label">status</div></div>     
     </div>
   </div>
 
   <script>
-    const target = new Date(2026, 3, 6, 5, 30, 0);
-
-    const els = {
-      d: document.getElementById("days"),
-      h: document.getElementById("hours"),
-      m: document.getElementById("mins"),
-      s: document.getElementById("secs")
-    };
-
-    function pad(n){ return String(n).padStart(2,"0"); }
-
-    setInterval(() => {
-      const now = new Date();
-      let diff = target - now;
-
-      if (diff <= 0) {
-        els.d.textContent = "0";
-        els.h.textContent = "00";
-        els.m.textContent = "00";
-        els.s.textContent = "00";
-        return;
-      }
-
-      const days = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-      const totalSeconds = Math.floor(diff / 1000);
-      const hours = Math.floor((totalSeconds % 86400) / 3600);
-      const mins = Math.floor((totalSeconds % 3600) / 60);
-      const secs = totalSeconds % 60;
-
-      els.d.textContent = days;
-      els.h.textContent = pad(hours);
-      els.m.textContent = pad(mins);
-      els.s.textContent = pad(secs);
-    }, 250);
+    // timer removed, it's dead now 😂
   </script>
 </body>
 </html>
