@@ -73,23 +73,26 @@
   <div class="wrap">
     <h1>major family countdown</h1>
     <div class="sub">june 10 • 3:15 pm (school days left)</div>
- 
     <div class="grid">
       <div class="card"><div class="num" id="days">--</div><div class="label">days</div></div>
-      <div class="card"><div class="num" id="hours">--</div><div class="label">hours</div></div>
-      <div class="card"><div class="num" id="mins">--</div><div class="label">minutes</div></div>
-      <div class="card"><div class="num" id="secs">--</div><div class="label">seconds</div></div>
+      <div class="card"><div class="num" id="hours"></div><div class="label">hours</div></div>
+      <div class="card"><div class="num" id="mins"></div><div class="label">minutes</div></div>
+      <div class="card"><div class="num" id="secs"></div><div class="label">seconds</div></div>
     </div>
   </div>
+
   <script>
     const target = new Date(2026, 5, 9, 15, 15, 0);
+
     const els = {
       d: document.getElementById("days"),
       h: document.getElementById("hours"),
       m: document.getElementById("mins"),
       s: document.getElementById("secs")
     };
+
     function pad(n){ return String(n).padStart(2,"0"); }
+
     function isSchoolDay(date) {
       const day = date.getDay();
       if (day === 0 || day === 6) return false;
@@ -98,31 +101,40 @@
       if (m === 5 && d === 25) return false;
       return true;
     }
+
     function update() {
       const now = new Date();
       let diff = target - now;
       if (diff <= 0) {
-        els.d.textContent = "00"; els.h.textContent = "00";
-        els.m.textContent = "00"; els.s.textContent = "00";
+        els.d.textContent = "00";
+        els.h.textContent = "00";
+        els.m.textContent = "00";
+        els.s.textContent = "00";
         return;
       }
+
       const totalSeconds = Math.floor(diff / 1000);
       const hours = Math.floor((totalSeconds % 86400) / 3600);
       const mins = Math.floor((totalSeconds % 3600) / 60);
       const secs = totalSeconds % 60;
+
       els.h.textContent = pad(hours);
       els.m.textContent = pad(mins);
       els.s.textContent = pad(secs);
-      // school days left
+
+      // school days left — starts from TODAY
       let schoolDays = 0;
-      let checkDate = new Date(2026, 3, 14);
+      let checkDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       const targetDateOnly = new Date(2026, 5, 9);
+
       while (checkDate <= targetDateOnly) {
         if (isSchoolDay(checkDate)) schoolDays++;
         checkDate.setDate(checkDate.getDate() + 1);
       }
-      els.d.textContent = pad(schoolDays);
+
+      els.d.textContent = schoolDays;   // no leading zero for days, looks cleaner
     }
+
     setInterval(update, 250);
     update();
   </script>
