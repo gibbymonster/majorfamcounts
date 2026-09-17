@@ -81,7 +81,7 @@
     </div>
   </div>
   <script>
-    const target = new Date(2026, 5, 11, 14, 10, 0);
+    const target = new Date(2027, 5, 11, 14, 10, 0);
     const els = {
       d: document.getElementById("days"),
       h: document.getElementById("hours"),
@@ -117,12 +117,12 @@
       // school days left — starts from TODAY
       let schoolDays = 0;
       let checkDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const targetDateOnly = new Date(2026, 5, 11);
+      const targetDateOnly = new Date(2027, 5, 11);
       while (checkDate <= targetDateOnly) {
         if (isSchoolDay(checkDate)) schoolDays++;
         checkDate.setDate(checkDate.getDate() + 1);
       }
-      els.d.textContent = schoolDays;   // no leading zero for days, looks cleaner
+      els.d.textContent = schoolDays;
     }
     setInterval(update, 250);
     update();
